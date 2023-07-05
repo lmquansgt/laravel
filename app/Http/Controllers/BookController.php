@@ -38,9 +38,9 @@ class BookController extends Controller
             'author' => 'required',
         ]);
 
-        Book::create($request->all());
+        $book = Book::create($request->all());
 
-        return redirect()->route('books.index')
+        return redirect()->route('books.show', $book->id)
             ->with('success', 'Book successfully created');
     }
 
@@ -66,8 +66,8 @@ class BookController extends Controller
     public function update(Request $request, Book $book): RedirectResponse
     {
         $request->validate([
-            'name' => 'required',
             'title' => 'required',
+            'author' => 'required',
         ]);
 
         $book->update($request->all());

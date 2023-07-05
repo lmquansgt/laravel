@@ -15,6 +15,11 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
         });
+
+        Schema::table('books', function (Blueprint $table) {
+            $table->string('title');
+            $table->string('author');
+        });
     }
 
     /**
@@ -23,5 +28,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('books');
+
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropColumn(['title', 'author']);
+        });
     }
 };

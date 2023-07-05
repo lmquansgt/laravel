@@ -10,7 +10,7 @@
 
             <div class="pull-left">
 
-                <h2>Laravel 10 CRUD Example from scratch - ItSolutionStuff.com</h2>
+                <h2>Library</h2>
 
             </div>
 
@@ -24,80 +24,82 @@
 
     </div>
 
+    <x-alert.success />
 
+    @if (count($books) === 0)
 
-    @if ($message = Session::get('success'))
+        <h3> There's no book added yet! Try adding one! </h3>
 
-        <div class="alert alert-success">
+    @else
 
-            <p>{{ $message }}</p>
+        <table class="table table-bordered">
 
-        </div>
+            <tr>
+
+                <th>Mark</th>
+
+                <th>No</th>
+
+                <th>Name</th>
+
+                <th>Author</th>
+
+                <th width="280px">Action</th>
+
+            </tr>
+
+            @foreach ($books as $book)
+
+                <tr>
+
+                    <td>
+                        <input
+                            onchange="updateCheck({{$book->id}})"
+                            @checked(in_array($book->id, session('checkList')))
+                            type="checkbox"
+                        />
+                    </td>
+
+                    <td>{{ ++$i }}</td>
+
+                    <td>{{ $book->title }}</td>
+
+                    <td>{{ $book->author }}</td>
+
+                    <td>
+
+                        <form action="{{ route('books.destroy',$book->id) }}" method="POST">
+
+                            <a class="btn btn-info" href="{{ route('books.show',$book->id) }}">Show</a>
+
+                            <a class="btn btn-primary" href="{{ route('books.edit',$book->id) }}">Edit</a>
+
+                            @csrf
+
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger">Delete</button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+            @endforeach
+
+        </table>
 
     @endif
 
-
-
-    <table class="table table-bordered">
-
-        <tr>
-
-            <th>No</th>
-
-            <th>Name</th>
-
-            <th>Details</th>
-
-            <th width="280px">Action</th>
-
-        </tr>
-
-        @foreach ($books as $book)
-
-        <tr>
-
-            <td>{{ ++$i }}</td>
-
-            <td>{{ $book->name }}</td>
-
-            <td>{{ $book->detail }}</td>
-
-            <td>
-
-                <form action="{{ route('books.destroy',$book->id) }}" method="POST">
-
-
-
-                    <a class="btn btn-info" href="{{ route('books.show',$book->id) }}">Show</a>
-
-
-
-                    <a class="btn btn-primary" href="{{ route('books.edit',$book->id) }}">Edit</a>
-
-
-
-                    @csrf
-
-                    @method('DELETE')
-
-
-
-                    <button type="submit" class="btn btn-danger">Delete</button>
-
-                </form>
-
-            </td>
-
-        </tr>
-
-        @endforeach
-
-    </table>
-
-
-
     {!! $books->links() !!}
 
-
-
 @endsection
+
+<script src="{{ asset('../../js/app.js')}}"> </script>
+
+<script type="text/javascript">
+    function updateCheck(bookId) {
+        axios.post('/check-list', {id: bookId})
+    }
+</script>

@@ -1,4 +1,4 @@
-@extends('products.layout')
+@extends('books.layout')
 
 
 
@@ -10,13 +10,13 @@
 
         <div class="pull-left">
 
-            <h2>Add New Product</h2>
+            <h2>Add New Book</h2>
 
         </div>
 
         <div class="pull-right">
 
-            <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('books.index') }}"> Back</a>
 
         </div>
 
@@ -24,31 +24,9 @@
 
 </div>
 
+<x-alert.error />
 
-
-@if ($errors->any())
-
-    <div class="alert alert-danger">
-
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-
-        <ul>
-
-            @foreach ($errors->all() as $error)
-
-                <li>{{ $error }}</li>
-
-            @endforeach
-
-        </ul>
-
-    </div>
-
-@endif
-
-
-
-<form action="{{ route('products.store') }}" method="POST">
+<form action="{{ route('books.store') }}" method="POST">
 
     @csrf
 
@@ -60,9 +38,9 @@
 
             <div class="form-group">
 
-                <strong>Name:</strong>
+                <strong>Title:</strong>
 
-                <input type="text" name="name" class="form-control" placeholder="Name">
+                <input type="text" name="title" class="form-control" placeholder="Title">
 
             </div>
 
@@ -72,9 +50,9 @@
 
             <div class="form-group">
 
-                <strong>Detail:</strong>
+                <strong>Author:</strong>
 
-                <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea>
+                <input class="form-control" name="author" placeholder="Author"></input>
 
             </div>
 

@@ -1,4 +1,4 @@
-@extends('products.layout')
+@extends('books.layout')
 
 
 
@@ -10,13 +10,13 @@
 
             <div class="pull-left">
 
-                <h2> Show Product</h2>
+                <h2> Show book</h2>
 
             </div>
 
             <div class="pull-right">
 
-                <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('books.index') }}"> Back</a>
 
             </div>
 
@@ -24,7 +24,7 @@
 
     </div>
 
-
+    <x-alert.success />
 
     <div class="row">
 
@@ -32,9 +32,9 @@
 
             <div class="form-group">
 
-                <strong>Name:</strong>
+                <strong>Title:</strong>
 
-                {{ $product->name }}
+                {{ $book->title }}
 
             </div>
 
@@ -44,9 +44,9 @@
 
             <div class="form-group">
 
-                <strong>Details:</strong>
+                <strong>Author:</strong>
 
-                {{ $product->detail }}
+                {{ $book->author }}
 
             </div>
 
