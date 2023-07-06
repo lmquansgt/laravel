@@ -8,6 +8,9 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+RUN apt-get install -y nodejs npm \
+    && npm install -g npm
+
 WORKDIR /var/www/html
 
 CMD composer install && php-fpm

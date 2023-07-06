@@ -55,7 +55,7 @@
                     <td>
                         <input
                             onchange="updateCheck({{$book->id}})"
-                            @checked(in_array($book->id, session('checkList')))
+                            @checked(in_array($book->id, session('checkList') ?? []))
                             type="checkbox"
                         />
                     </td>
@@ -96,10 +96,12 @@
 
 @endsection
 
-<script src="{{ asset('../../js/app.js')}}"> </script>
-
-<script type="text/javascript">
-    function updateCheck(bookId) {
-        axios.post('/check-list', {id: bookId})
-    }
-</script>
+@push('checkList')
+<script src="{{ asset('js/checkList')}}" defer></script>
+@endpush
+{{-- <script type=text/javascript> --}}
+{{--     function updateCheck(bookId) { --}}
+{{--         console.log('sending request'); --}}
+{{--         axios.post('/check-list', { id: bookId }); --}}
+{{--     } --}}
+{{-- </script> --}}
